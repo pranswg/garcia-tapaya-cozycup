@@ -1,311 +1,143 @@
-/* Reset some default styles */
-body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fff6da;
-    color: #4c3c32;
-}
-
-header {
-    background-color: #ffe989;/* Reset some default styles */
-body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300;800&display=swap');
 
 :root {
-    --primary: #4c3c32;
-    --accent: #ffcc00; /* Bright gold for flashiness */
-    --soft-cream: #fff6da;
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --bg-color: #1b1714;      /* Deep Espresso */
+    --surface: #2a2420;       /* Lighter Roast */
+    --accent: #f39c12;        /* Golden Crema */
+    --text-main: #e0d8d0;
+    --shadow-dark: #0f0c0a;
+    --shadow-light: #29231f;
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif; /* Modernized font stack */
-    background-color: var(--soft-cream);
-    color: var(--primary);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* --- Navigation --- */
+/* --- The Flashy Background --- */
+.blob-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgba(243, 156, 18, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(111, 78, 55, 0.1) 0%, transparent 40%);
+    z-index: -1;
+}
+
+/* --- Neumorphic Navigation --- */
 header {
-    background-color: #ffe989;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 10px 5%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    padding: 20px 5%;
+    background: var(--bg-color);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo img {
-    max-width: 120px;
-    transition: var(--transition);
-}
-
-.logo img:hover {
-    transform: rotate(-5deg) scale(1.1);
+    background: var(--surface);
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: 10px 10px 20px var(--shadow-dark), 
+                -10px -10px 20px var(--shadow-light);
 }
 
 nav ul {
-    list-style: none;
     display: flex;
-    gap: 30px;
+    list-style: none;
+    gap: 25px;
 }
 
 nav a {
     text-decoration: none;
-    color: var(--primary);
-    font-weight: bold;
-    position: relative;
-    padding-bottom: 5px;
-}
-
-/* Flashy Underline Animation */
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: var(--primary);
-    transition: var(--transition);
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-/* --- Hero Section --- */
-.hero {
-    text-align: center;
-    padding: 180px 20px;
-    background: linear-gradient(rgba(255, 233, 137, 0.4), rgba(255, 233, 137, 0.4)), url('hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Parallax effect */
-    animation: fadeIn 1.5s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.hero h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
+    color: var(--text-main);
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -1px;
-    text-shadow: 2px 2px 0px var(--accent);
-}
-
-.hero p {
-    font-size: 22px;
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 15px 40px;
-    background-color: var(--primary);
-    color: white;
-    text-decoration: none;
-    border-radius: 50px; /* Pill shape is trendier */
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0 10px 20px rgba(76, 60, 50, 0.3);
-    transition: var(--transition);
-}
-
-.cta-button:hover {
-    background-color: #000;
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-/* --- Content Sections --- */
-.menu, .about, .contact {
-    padding: 120px 20px;
-    transition: var(--transition);
-}
-
-h2 {
-    font-size: 42px;
-    margin-bottom: 30px;
-    position: relative;
-    display: inline-block;
-}
-
-/* Adding decorative elements to headers */
-h2::before {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 5px;
-    background: var(--accent);
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.menu {
-    background: white;
-    text-align: center;
-}
-
-.about {
-    text-align: center;
-    background-color: #ede4d6;
-    clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%); /* Modern angled cut */
-}
-
-.about p {
-    font-size: 20px;
-    max-width: 700px;
-    margin: 0 auto;
-    color: #6d5a4e;
-}
-
-/* --- Contact & Footer --- */
-.contact {
-    text-align: center;
-    background: linear-gradient(135deg, #4c3c32 0%, #2c231d 100%);
-    color: white;
-}
-
-.contact h2::before {
-    background: #ffe989;
-}
-
-footer {
-    background-color: #2c231d;
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    padding: 40px 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    max-width: 100px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #4c3c32;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
 }
 
 nav a:hover {
-    color: #7e685b;
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
 }
 
+/* --- Hero Section: The Showstopper --- */
 .hero {
     text-align: center;
-    padding: 150px 0;
-    background-image: url('hero-bg.jpg');
-    background-size: cover;
-    color: rgb(0, 0, 0);
+    padding: 100px 20px;
 }
 
 .hero h1 {
-    font-size: 36px;
+    font-family: 'Bungee Shade', cursive; /* Ultra Flashy Font */
+    font-size: clamp(2rem, 8vw, 5rem);
+    color: var(--accent);
     margin-bottom: 20px;
+    line-height: 1.1;
 }
 
 .hero p {
-    font-size: 18px;
-    margin-bottom: 40px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    opacity: 0.8;
 }
 
 .cta-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4c3c32;
-    color: white;
     text-decoration: none;
-    border-radius: 5px;
+    padding: 20px 50px;
+    background: var(--surface);
+    color: var(--accent);
+    border-radius: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    box-shadow: 8px 8px 16px var(--shadow-dark), 
+                -8px -8px 16px var(--shadow-light);
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
 }
 
 .cta-button:hover {
-    background-color: #7e685b;
+    box-shadow: inset 5px 5px 10px var(--shadow-dark), 
+                inset -5px -5px 10px var(--shadow-light);
+    transform: scale(0.98);
 }
 
-.menu {
-    padding: 100px 0;
+/* --- Glass Containers --- */
+.glass-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+section {
+    background: var(--surface);
+    margin-bottom: 60px;
+    padding: 60px 40px;
+    border-radius: 30px;
+    box-shadow: 20px 20px 60px var(--shadow-dark), 
+                -20px -20px 60px var(--shadow-light);
     text-align: center;
 }
 
-.menu h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--text-main);
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--accent);
+    display: inline-block;
 }
 
-.about {
-    padding: 100px 0;
-    text-align: center;
-    background-color: #ede4d6;
-}
-
-.about h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.about p {
-    font-size: 18px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.contact {
-    padding: 100px 0;
-    text-align: center;
-    background-color: #4c3c32;
-    color: white;
-}
-
-.contact h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.contact p {
-    font-size: 18px;
-    margin-bottom: 40px;
-}
-
+/* --- Footer --- */
 footer {
-    background-color: #4c3c32;
-    color: white;
+    padding: 40px;
     text-align: center;
-    padding: 20px 0;
+    font-size: 0.9rem;
+    color: #555;
 }
