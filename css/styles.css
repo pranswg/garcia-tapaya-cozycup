@@ -1,53 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300;400;800&display=swap');
+
+/* --- 1. Global & Smooth Scroll --- */
+html {
+    scroll-behavior: smooth; 
+    /* Offset for the sticky nav so it doesn't cover titles when you click links */
+    scroll-padding-top: 170px; 
+}
 
 :root {
-    --bg-color: #1b1714;      /* Deep Espresso */
-    --surface: #2a2420;       /* Lighter Roast */
-    --accent: #f39c12;        /* Golden Crema */
+    --bg-color: #1b1714;
+    --surface: #2a2420;
+    --accent: #f39c12;
     --text-main: #e0d8d0;
     --shadow-dark: #0f0c0a;
     --shadow-light: #29231f;
+    --container-width: 1100px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
+    line-height: 1.8;
     overflow-x: hidden;
 }
 
-/* --- The Flashy Background --- */
+/* --- Background Layer --- */
 .blob-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: radial-gradient(circle at 10% 20%, rgba(243, 156, 18, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(111, 78, 55, 0.1) 0%, transparent 40%);
+    background: radial-gradient(circle at 15% 15%, rgba(243, 156, 18, 0.08) 0%, transparent 50%);
     z-index: -1;
 }
 
-/* --- Neumorphic Navigation --- */
+/* --- Organized Header & Navigation --- */
 header {
-    padding: 20px 5%;
-    background: var(--bg-color);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
 }
 
 nav {
+    max-width: var(--container-width);
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--surface);
-    padding: 15px 30px;
-    border-radius: 50px;
-    box-shadow: 10px 10px 20px var(--shadow-dark), 
-                -10px -10px 20px var(--shadow-light);
+    background: rgba(42, 36, 32, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 10px 40px;
+    border-radius: 100px;
+    box-shadow: 15px 15px 30px var(--shadow-dark);
+}
+
+.logo img {
+    height: 140px;
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 30px;
+    margin-left: auto;
 }
 
 nav a {
@@ -55,89 +85,210 @@ nav a {
     color: var(--text-main);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    transition: 0.3s;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    position: relative; /* Added for hover transition line */
 }
 
-nav a:hover {
+/* Navigation Underline Transition */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover { 
     color: var(--accent);
-    text-shadow: 0 0 10px var(--accent);
+    text-shadow: 0 0 8px rgba(243, 156, 18, 0.4);
 }
 
-/* --- Hero Section: The Showstopper --- */
+/* --- Layout Organization --- */
+.glass-container {
+    max-width: var(--container-width);
+    margin: 220px auto 100px;
+    padding: 0 20px;
+}
+
+/* --- Section Reveal Animation --- */
+section {
+    background: var(--surface);
+    border-radius: 40px;
+    box-shadow: 20px 20px 60px var(--shadow-dark), 
+                -20px -20px 60px var(--shadow-light);
+    margin-bottom: 50px;
+    
+    /* Initial state for transition */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: sectionReveal 0.8s forwards;
+}
+
+@keyframes sectionReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered appearance timing */
+section:nth-child(1) { animation-delay: 0.2s; }
+section:nth-child(2) { animation-delay: 0.4s; }
+section:nth-child(3) { animation-delay: 0.6s; }
+section:nth-child(4) { animation-delay: 0.8s; }
+
+/* Grid Layout for About and Contact */
+#about, #contact {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; 
+    gap: 40px;
+    padding: 60px 50px;
+    align-items: center;
+}
+
+/* --- Hero Tweaks --- */
 .hero {
-    text-align: center;
-    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    padding: 80px 60px;
 }
 
 .hero h1 {
-    font-family: 'Bungee Shade', cursive; /* Ultra Flashy Font */
-    font-size: clamp(2rem, 8vw, 5rem);
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(1.5rem, 3vw, 2.5rem); 
     color: var(--accent);
-    margin-bottom: 20px;
-    line-height: 1.1;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    opacity: 0.8;
 }
 
 .hero p {
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 50px;
+    font-size: 1rem; 
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    border-left: 3px solid var(--accent);
+    padding-left: 15px;
+}
+
+/* --- Menu Section Organization --- */
+.menu {
+    padding: 60px 50px;
+    text-align: center;
+}
+
+.menu h2 {
+    margin-bottom: 40px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.menu-item {
+    background: var(--bg-color);
+    padding: 25px;
+    border-radius: 25px;
+    text-align: left;
+    box-shadow: 10px 10px 20px var(--shadow-dark), 
+                -5px -5px 15px var(--shadow-light);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 15px 15px 30px var(--shadow-dark);
+}
+
+.menu-item h3 {
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.menu-item p {
+    font-size: 0.9rem;
     opacity: 0.8;
+    margin-bottom: 15px;
+    border: none;
+    padding-left: 0;
+}
+
+.price {
+    font-weight: 800;
+    color: var(--text-main);
+    display: block;
+}
+
+/* --- Global Section Elements --- */
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.about p, .contact p {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    opacity: 0.9;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    padding-left: 30px;
 }
 
 .cta-button {
     text-decoration: none;
-    padding: 20px 50px;
+    padding: 18px 45px;
     background: var(--surface);
     color: var(--accent);
-    border-radius: 15px;
+    border-radius: 12px;
     font-weight: 800;
     text-transform: uppercase;
     box-shadow: 8px 8px 16px var(--shadow-dark), 
                 -8px -8px 16px var(--shadow-light);
-    transition: all 0.2s ease-in-out;
-    display: inline-block;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cta-button:hover {
-    box-shadow: inset 5px 5px 10px var(--shadow-dark), 
-                inset -5px -5px 10px var(--shadow-light);
-    transform: scale(0.98);
+    transform: translateY(-3px);
+    box-shadow: 10px 10px 20px var(--shadow-dark);
 }
 
-/* --- Glass Containers --- */
-.glass-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
-}
-
-section {
-    background: var(--surface);
-    margin-bottom: 60px;
-    padding: 60px 40px;
-    border-radius: 30px;
-    box-shadow: 20px 20px 60px var(--shadow-dark), 
-                -20px -20px 60px var(--shadow-light);
-    text-align: center;
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: var(--text-main);
-    text-transform: uppercase;
-    border-bottom: 3px solid var(--accent);
-    display: inline-block;
-}
-
-/* --- Footer --- */
 footer {
-    padding: 40px;
     text-align: center;
-    font-size: 0.9rem;
-    color: #555;
+    padding: 60px;
+    font-size: 0.8rem;
+    opacity: 0.4;
+    letter-spacing: 2px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        border-radius: 30px;
+        padding: 20px;
+    }
+    nav ul {
+        margin: 20px 0 0 0;
+        gap: 15px;
+    }
+    .logo img { height: 100px; }
+    #about, #contact { grid-template-columns: 1fr; }
+    .about p, .contact p { border-left: none; padding-left: 0; }
+    .glass-container { margin-top: 280px; }
+    html { scroll-padding-top: 290px; } /* Adjusted for mobile nav height */
 }
